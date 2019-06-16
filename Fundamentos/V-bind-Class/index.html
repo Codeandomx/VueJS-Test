@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V-bind-Class</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+</head>
+<body>
+
+    <div id="app" class="container mt-5">
+        <div :class="['p-3', 'text-white', fondo]">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ipsum unde, odit maiores aspernatur quas, in ex, veniam incidunt vel iure. Esse, quaerat. Voluptates veritatis nisi id ipsa, odio optio?
+        </div>
+
+        <input type="text" v-model="fondo" />
+
+        <div class="p-3 text-white" :class="{'bg-info': color, 'bg-success': !color}">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ipsum unde, odit maiores aspernatur quas, in ex, veniam incidunt vel iure. Esse, quaerat. Voluptates veritatis nisi id ipsa, odio optio?
+        </div>
+
+        <button class="btn btn-primary" @click="color = !color">Color</button>
+    </div>
+    
+    <script src="//cdn.jsdelivr.net/npm/vue"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
