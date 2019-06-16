@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map actions y actions</title>
+</head>
+<body>
+
+    <div id="app">
+        <titulo></titulo>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+    <script>
+    Vue.component('titulo', {
+        template: //html
+        `
+        <div>
+            <h1>numero: {{ $store.state.numero }}</h1>
+            <hijo></hijo>
+        </div>
+        `
+    })
+
+    Vue.component('hijo', {
+        template: // html
+        `
+        <div>
+            <button @click="aumentar">+</button>
+            <button @click="obtenerCursos">Obtener cursos</button>
+            <h1>numero: {{ numero }}</h1>
+            <ul v-for="curso of cursos">
+                <li>{{ curso.nombre }}</li>
+            </ul>
+        </div>
+        `,
+        computed: {
+            ...Vuex.mapState([
+                'numero',
+                'cursos'
+            ])
+        },
+        methods: {
+            ...Vuex.mapMutations([
+                'aumentar'
+            ]),
+            ...Vuex.mapActions([
+                'obtenerCursos'
+            ])
+        }
+
+    })
+
+    // Trabajamos con vuex
+    const store = new Vuex.Store({
+        state: { // Datos
+            numero: 10,
+            cursos: []
+        },
+        mutations: { // metodos
+            aumentar (state) {
+                state.numero++
+            },
+            llenarCursos(state, cursosAccion){
+                state.cursos = cursosAccion
+            }
+        },
+        actions: {
+            obtenerCursos: async function ({ commit }) {
+                const data = await fetch('cursos.json')
+
+                const cursos = await data.json() // Regresamos en formato de objeto
+
+                commit('llenarCursos', cursos)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app',
+        store: store // Llamamos a Vuex
+    })
+    </script>
+</body>
+</html>
